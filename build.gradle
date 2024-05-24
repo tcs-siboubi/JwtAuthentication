@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}" // Make sure to use a compatible Spring Boot version
+    id 'io.freefair.lombok' version "${lombokVersion}"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+description = "Key Generator Services"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17 // Adjust this to your project's Java version
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.slf4j:slf4j-simple:${slf4jVersion}"
+    implementation platform("com.fasterxml.jackson:jackson-bom:${jacksonVersion}")
+    // JJWT
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+    implementation "io.jsonwebtoken:jjwt:${jjwtVersion}"
+
+    implementation "commons-codec:commons-codec:${commonsCodecVersion}"
+    implementation "javax.xml.bind:jaxb-api:${jaxbVersion}" // Add JAXB API dependency
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+bootJar {
+    archiveBaseName.set('JwtAuthentication')
+    archiveVersion.set('1.0-SNAPSHOT')
+}
